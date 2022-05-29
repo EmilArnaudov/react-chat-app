@@ -13,7 +13,7 @@ export default function Navigation() {
                 <label htmlFor ="searchBar">
                     <i className={[styles.searchIcon, 'fa-solid', 'fa-magnifying-glass'].join(' ')}></i>
                 </label>
-                <input name='searchBar' id='searchBar' className={styles.input} type="text" />
+                <input name='searchBar' id='searchBar' className={styles.input} type="text" placeholder="Search.." />
             </div>
 
             <ul className={styles.ul}>

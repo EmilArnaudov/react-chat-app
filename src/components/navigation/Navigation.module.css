@@ -82,6 +82,7 @@
     border: none;
     border-radius: 16px;
     padding-left: 35px;
+    background-color: #5c4f81;;
 }
 
 .input:focus {

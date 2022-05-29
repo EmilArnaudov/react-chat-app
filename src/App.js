@@ -1,14 +1,13 @@
 import './App.css';
+import Main from './components/main/Main';
 
-import Navigation from './components/navigation/Navigation';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   return (
     <Router>
-      <Navigation></Navigation>
       <Routes>
-        <Route path='/'></Route>
+        <Route path='/' element={<Main/>}></Route>
       </Routes>
     </Router>
   );
