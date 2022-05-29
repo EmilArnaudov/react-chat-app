@@ -8,4 +8,27 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 32px;
+
+    position: relative;
 }
+
+.chatMessages {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+
+.chatMessages::-webkit-scrollbar {
+    width: 8px;               /* width of the entire scrollbar */
+  }
+  
+.chatMessages::-webkit-scrollbar-track {
+    background: transparent;        /* color of the tracking area */
+  }
+  
+.chatMessages::-webkit-scrollbar-thumb {
+    background-color: #3f345f;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+  }
