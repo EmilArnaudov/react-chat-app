@@ -6,6 +6,12 @@ export default function Contacts() {
     return (
         <div className={styles.container}>
             <Contact></Contact>
+            <Contact></Contact>
+            <Contact></Contact>
+            <Contact></Contact>
+            <Contact></Contact>
+            <Contact></Contact>
+            <Contact></Contact>
         </div>
     )
 }

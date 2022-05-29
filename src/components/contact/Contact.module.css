@@ -2,10 +2,18 @@
     display: flex;
     gap: 14px;
     padding-bottom: 12px;
+    transition: background-color 400ms ease-in-out;
+    padding: 6px;
+    border-radius: 16px;
+}
+
+.card:hover {
+    cursor: pointer;
+    background-color: #696083;
 }
 
 .imgContainer {
-    width: 17%;
+    width: 15%;
 }
 
 .img {
@@ -24,12 +32,13 @@
 
 .username {
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
 }
 
 .lastMessage {
     color: grey;
+    font-size: 14px;
 }
 
 .lastMessageTimeContainer {
@@ -40,11 +49,11 @@
 .lastMessageTime {
     margin-top: 11.5px;
     margin-left: 30px;
-    font-size: 18px;
+    font-size: 14px;
     color: white;
     font-weight: 500;
 }
 
 .borderBottom {
-    border-bottom: 0.05px solid gray;
+    /* border-bottom: 0.05px solid gray; */
 }

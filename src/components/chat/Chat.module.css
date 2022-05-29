@@ -3,4 +3,9 @@
     height: 100%;
     background-color: #5c4f81;
     border-radius: 24px;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

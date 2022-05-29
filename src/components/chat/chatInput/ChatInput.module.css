@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+}
+
+.input {
+    width: 85%;
+    font-size: 20px;
+    font-family: Montserrat, sans-serif;
+    border: none;
+    border-radius: 36px;
+    padding-left: 70px;
+    padding-right: 70px;
+    overflow-x: scroll;
+}
+
+.input:focus {
+    border: none;
+    outline: none;
+}
+
+.sendIcon {
+    padding: 18px;
+    border-radius: 50%;
+    color: white;
+    background-color: #3dc5b7;
+    font-size: 24px;
+}
+
+.smile {
+    position: absolute;
+    top: 14px;
+    left: 42px;
+    color: lightgray;
+    font-size: 34px;
+    cursor: pointer;
+}
+
+.paperclip {
+    position: absolute;
+    top: 14px;
+    right: 150px;
+    color: lightgray;
+    font-size: 34px;
+    cursor: pointer;
+}

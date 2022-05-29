@@ -4,4 +4,23 @@
     background-color: #5c4f81;
     border-radius: 24px;
     padding: 18px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: scroll;
 }
+
+.container::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  
+.container::-webkit-scrollbar-track {
+    background: transparent;        /* color of the tracking area */
+  }
+  
+.container::-webkit-scrollbar-thumb {
+    background-color: #3f345f;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 5px solid #3f345f;  /* creates padding around scroll thumb */
+  }
