@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navigation.module.css';
 import { searchUsersInDb } from '../../services/userService';
@@ -6,26 +6,41 @@ import SearchedUsersDropdown from './searchedUsersDropdown/SearchedUsersDropdown
 export default function Navigation({
     logout,
     user,
-    db
+    db,
+    startChatWithUser
 }) {
 
     let [foundUsers, setFoundUsers] = useState([]);
+    let [inputValue, setInputValue] = useState('');
 
     let searchTimeOut;
-    const searchUsers = (e) => {
+    const searchUsers = (value) => {
         clearTimeout(searchTimeOut)
         searchTimeOut = setTimeout(async () => {
-            if (e.target.value === '') {
+            if (value === '') {
                 setFoundUsers([]);
                 return;
             }
 
-            let users = await searchUsersInDb(db, e.target.value)
-            console.log(users);
+            let users = await searchUsersInDb(db, value, user)
             setFoundUsers(users);
         }, 500)
-
     }
+
+    useEffect(() => {
+        console.log(inputValue);
+        searchUsers(inputValue)
+    }
+    , [inputValue])
+
+    function onChangeHandler(e) {
+        setInputValue(e.target.value);
+    }
+
+    function userSelected() {
+        setInputValue('');
+    }
+
 
     return (
         <nav className={styles.navigation}>
@@ -38,8 +53,8 @@ export default function Navigation({
                 <label htmlFor ="searchBar">
                     <i className={[styles.searchIcon, 'fa-solid', 'fa-magnifying-glass'].join(' ')}></i>
                 </label>
-                <input onChange={searchUsers} name='searchBar' id='searchBar' className={styles.input} type="text" placeholder="Search.." />
-                {foundUsers.length > 0 ? <SearchedUsersDropdown users={foundUsers}/> : ''}
+                <input onChange={onChangeHandler} value={inputValue} name='searchBar' id='searchBar' className={styles.input} type="text" placeholder="Search.." />
+                {foundUsers.length > 0 ? <SearchedUsersDropdown userSelected={userSelected} startChatWithUser={startChatWithUser} users={foundUsers}/> : ''}
             </div>
 
             <ul className={styles.ul}>

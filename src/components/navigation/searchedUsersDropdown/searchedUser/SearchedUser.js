@@ -1,10 +1,19 @@
+import { chatExists } from '../../../../services/chatService';
 import styles from './SearchedUser.module.css';
 
 export default function SearchedUser({
-    user
+    user,
+    startChatWithUser,
+    userSelected,
 }) {
+
+    function clickHandler() {
+        startChatWithUser(user);
+        userSelected();
+    }
+
     return (
-        <div className={styles.container}>
+        <div onClick={clickHandler} className={styles.container}>
             <div className={styles.imgContainer}>
                 <img className={styles.img} src={user.photoURL} alt="" />
             </div>

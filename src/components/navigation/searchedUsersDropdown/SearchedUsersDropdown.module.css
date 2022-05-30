@@ -9,6 +9,10 @@
     height: 300px;
     overflow: scroll;
     padding: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .container::-webkit-scrollbar {

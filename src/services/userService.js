@@ -22,7 +22,7 @@ export async function addUserToDatabase(db, user) {
 }
 
 
-export async function searchUsersInDb(db, query) {
+export async function searchUsersInDb(db, query, user) {
     let result = [];
     let docRef = collection(db, 'users');
     let docSnap = await getDocs(docRef);

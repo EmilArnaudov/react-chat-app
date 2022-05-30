@@ -25,6 +25,10 @@ function App() {
     signInWithPopup(auth, provider);
 }
 
+  const startChatWithUser = (selectedUser) => {
+    console.log(selectedUser);
+  }
+
   const logout = () => {
     signOut(auth);
   }
@@ -32,7 +36,18 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={user ? <Main user={user} db={db} logout={logout} /> : <Login signInWithGoogle={signInWithGoogle}/>}></Route>
+        <Route path='/' element={
+              user 
+              ? <Main 
+                      user={user} 
+                      db={db}
+                      logout={logout}
+                      startChatWithUser={startChatWithUser}
+                /> 
+              : <Login signInWithGoogle={signInWithGoogle}/>
+              }>
+                
+        </Route>
       </Routes>
     </Router>
   );

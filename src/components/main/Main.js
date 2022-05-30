@@ -9,7 +9,8 @@ import { userExists, addUserToDatabase } from '../../services/userService';
 export default function Main({
     logout,
     user,
-    db
+    db,
+    startChatWithUser,
 }) {
 
     useEffect( () => {
@@ -27,7 +28,7 @@ export default function Main({
     return (
         <>
             <header>
-                <Navigation db={db} user={user} logout={logout}></Navigation>
+                <Navigation startChatWithUser={startChatWithUser} db={db} user={user} logout={logout}></Navigation>
             </header>
             <main className={styles.main}>
                 <Contacts></Contacts>

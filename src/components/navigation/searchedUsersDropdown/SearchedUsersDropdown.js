@@ -2,7 +2,9 @@ import styles from './SearchedUsersDropdown.module.css';
 import SearchedUser from './searchedUser/SearchedUser';
 
 export default function SearchedUsersDropdown({
-    users
+    users,
+    startChatWithUser,
+    userSelected
 }) {
 
     if (users.length === 0 ){
@@ -11,7 +13,8 @@ export default function SearchedUsersDropdown({
 
     return (
         <div className={styles.container}>
-            <SearchedUser user={users[0]}></SearchedUser>
+            {users.map(user => <SearchedUser key={user.email} userSelected={userSelected} startChatWithUser={startChatWithUser} user={user}></SearchedUser>)}
+
         </div>
     )
 }
