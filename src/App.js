@@ -1,12 +1,12 @@
 import './App.css';
 import Main from './components/main/Main';
 import Login from './components/login/Login';
-import { userExists } from './services/userService';
+
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebaseConfig';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
@@ -25,9 +25,7 @@ function App() {
     signInWithPopup(auth, provider);
 }
 
-  const startChatWithUser = (selectedUser) => {
-    console.log(selectedUser);
-  }
+
 
   const logout = () => {
     signOut(auth);
@@ -42,7 +40,6 @@ function App() {
                       user={user} 
                       db={db}
                       logout={logout}
-                      startChatWithUser={startChatWithUser}
                 /> 
               : <Login signInWithGoogle={signInWithGoogle}/>
               }>

@@ -6,12 +6,20 @@ import Chat from '../chat/Chat';
 import { useEffect } from 'react';
 import { userExists, addUserToDatabase } from '../../services/userService';
 
+import { constructID } from '../../services/helpers'
+
 export default function Main({
     logout,
     user,
     db,
-    startChatWithUser,
+
 }) {
+
+    const startChatWithUser = (selectedUser) => {
+        console.log(selectedUser);
+        console.log(constructID(user,selectedUser));
+        console.log(constructID(selectedUser, user));
+      }
 
     useEffect( () => {
 

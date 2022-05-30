@@ -11,8 +11,11 @@ export function constructID(user, otherUser) {
         idString = otherUser.email + user.email; 
     }
 
+
     for (let i = 0; i < idString.length; i++) {
-        sum += idString.charCodeAt[i];
+        console.log('SUMMING', sum);
+        console.log(idString.charCodeAt(i));
+        sum += idString.charCodeAt(i);
         sum *= 2
         sum -= 30
     }
