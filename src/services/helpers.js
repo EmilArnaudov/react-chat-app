@@ -1,5 +1,4 @@
 export function constructID(user, otherUser) {
-    let id;
     let firstLetter = user.email[0];
     let secondLetter = otherUser.email[0]
 
@@ -13,8 +12,6 @@ export function constructID(user, otherUser) {
 
 
     for (let i = 0; i < idString.length; i++) {
-        console.log('SUMMING', sum);
-        console.log(idString.charCodeAt(i));
         sum += idString.charCodeAt(i);
         sum *= 2
         sum -= 30

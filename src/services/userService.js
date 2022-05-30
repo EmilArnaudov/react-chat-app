@@ -1,4 +1,4 @@
-import { collection, addDoc, doc, getDoc, setDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, getDocs, updateDoc, arrayUnion } from "firebase/firestore";
 
 export async function userExists(db, email) {
     const userDocRef = doc(db, 'users', email);
@@ -33,3 +33,20 @@ export async function searchUsersInDb(db, query, user) {
         element.displayName.toLowerCase().includes(query.toLowerCase()) 
         || element.email.toLowerCase().includes(query.toLowerCase()));
 }
+
+
+export async function updateUserPrivateChatField(db, user, otherUser) {
+    const userToUpdateRef = doc(db, 'users', user.email);
+    await updateDoc(userToUpdateRef, {privateChats: arrayUnion(otherUser.email)})
+}
+
+
+export async function getContactUsersInfo(db, contacts) {
+    contacts = contacts.map(async (contact) => {
+        const docRef = doc(db, "users", contact);
+        const docSnap = await getDoc(docRef);
+        return docSnap.data();
+    })
+
+    return Promise.all(contacts);
+}   
