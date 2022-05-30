@@ -3,12 +3,31 @@ import styles from './Main.module.css';
 import Navigation from "../navigation/Navigation"
 import Contacts from '../contacts/Contacts';
 import Chat from '../chat/Chat';
+import { useEffect } from 'react';
+import { userExists, addUserToDatabase } from '../../services/userService';
 
-export default function Main() {
+export default function Main({
+    logout,
+    user,
+    db
+}) {
+
+    useEffect( () => {
+
+        userExists(db, user.email)
+            .then(userExistsInDb => {
+                console.log(userExistsInDb);
+                if (!userExistsInDb) {
+                    addUserToDatabase(db, user);
+                }
+            })
+
+    }, [])
+
     return (
         <>
             <header>
-                <Navigation></Navigation>
+                <Navigation user={user} logout={logout}></Navigation>
             </header>
             <main className={styles.main}>
                 <Contacts></Contacts>

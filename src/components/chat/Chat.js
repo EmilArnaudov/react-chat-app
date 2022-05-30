@@ -21,7 +21,7 @@ export default function Chat() {
                 <ChatMessage></ChatMessage>
                 <ChatMessage></ChatMessage>
             </div>
-            {showEmoji ? <EmojiPicker onEmojiSelect={(e) => {console.log(e.target)}} ></EmojiPicker> : ''}
+            {showEmoji ? <EmojiPicker onChange={(e) => {console.log(e.target)}} ></EmojiPicker> : ''}
             <ChatInput showEmojiClickHandler={showEmojiClickHandler}></ChatInput>
         </div>
     )

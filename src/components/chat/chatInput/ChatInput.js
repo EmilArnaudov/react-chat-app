@@ -8,7 +8,7 @@ export default function ChatInput({
             <i onClick={showEmojiClickHandler} className={["fa-solid", "fa-face-smile", styles.smile].join(' ')}></i>
             <i className={["fa-solid", "fa-paperclip", styles.paperclip].join(' ')}></i>
             <input className={styles.input} type="text" placeholder='Type a message' />
-            <span className={styles.sendIcon}><i class="fa-solid fa-paper-plane"></i></span>
+            <span className={styles.sendIcon}><i className={["fa-solid", "fa-paper-plane"].join(' ')}></i></span>
         </div>
     )
 }

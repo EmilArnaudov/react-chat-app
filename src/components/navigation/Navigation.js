@@ -1,7 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Navigation.module.css';
 
-export default function Navigation() {
+export default function Navigation({
+    logout,
+    user
+}) {
+
     return (
         <nav className={styles.navigation}>
             <div className={styles.logoContainer}>
@@ -20,11 +24,11 @@ export default function Navigation() {
                 <li className={styles.userInfo}>
                     <div className={styles.userInfoContainer}>
                         <div className={styles.userImgContainer}>
-                            <img className={styles.userImage} src="https://c8.alamy.com/comp/MHJ5HN/mascot-icon-illustration-of-head-of-a-black-wizard-sorcerer-or-magician-a-practitioner-of-magic-and-witchcraft-wearing-a-pointed-hat-viewed-from-fro-MHJ5HN.jpg" alt="" />
+                            <img className={styles.userImage} src={user.photoURL} alt="userPhoto" />
                         </div>
                         <div className={styles.userDetails}>
-                            <p className={styles.username}>Askkattor</p>
-                            <p className={styles.email}>email@email.yahoo</p>
+                            <p onClick={logout} className={styles.username}>{user.displayName}</p>
+                            <p className={styles.email}>{user.email}</p>
                         </div>
                     </div>
                 </li>
