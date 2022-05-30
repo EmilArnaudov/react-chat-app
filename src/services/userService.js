@@ -1,4 +1,4 @@
-import { collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, setDoc, getDocs } from "firebase/firestore";
 
 export async function userExists(db, email) {
     const userDocRef = doc(db, 'users', email);
@@ -17,5 +17,19 @@ export async function addUserToDatabase(db, user) {
         chatRoomsHosted: [],
         chatRoomsJoined: [],
         privateChats: [],
+        photoURL: user.photoURL,
     });
+}
+
+
+export async function searchUsersInDb(db, query) {
+    let result = [];
+    let docRef = collection(db, 'users');
+    let docSnap = await getDocs(docRef);
+    docSnap.forEach(doc => result.push(doc.data()));
+
+    return result.filter(
+        element => 
+        element.displayName.toLowerCase().includes(query.toLowerCase()) 
+        || element.email.toLowerCase().includes(query.toLowerCase()));
 }

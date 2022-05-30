@@ -1,0 +1,24 @@
+.container {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    top: 98%;
+    background-color: #8d78c7;;
+    z-index: 1000;
+    border-radius: 12px;
+    height: 300px;
+    overflow: scroll;
+    padding: 12px;
+}
+
+.container::-webkit-scrollbar {
+    display: none;            /* width of the entire scrollbar */
+  }
+  
+.container::-webkit-scrollbar-track {
+    display: none;
+  }
+  
+.container::-webkit-scrollbar-thumb {
+    display: none;
+  }

@@ -1,10 +1,31 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navigation.module.css';
-
+import { searchUsersInDb } from '../../services/userService';
+import SearchedUsersDropdown from './searchedUsersDropdown/SearchedUsersDropdown';
 export default function Navigation({
     logout,
-    user
+    user,
+    db
 }) {
+
+    let [foundUsers, setFoundUsers] = useState([]);
+
+    let searchTimeOut;
+    const searchUsers = (e) => {
+        clearTimeout(searchTimeOut)
+        searchTimeOut = setTimeout(async () => {
+            if (e.target.value === '') {
+                setFoundUsers([]);
+                return;
+            }
+
+            let users = await searchUsersInDb(db, e.target.value)
+            console.log(users);
+            setFoundUsers(users);
+        }, 500)
+
+    }
 
     return (
         <nav className={styles.navigation}>
@@ -17,7 +38,8 @@ export default function Navigation({
                 <label htmlFor ="searchBar">
                     <i className={[styles.searchIcon, 'fa-solid', 'fa-magnifying-glass'].join(' ')}></i>
                 </label>
-                <input name='searchBar' id='searchBar' className={styles.input} type="text" placeholder="Search.." />
+                <input onChange={searchUsers} name='searchBar' id='searchBar' className={styles.input} type="text" placeholder="Search.." />
+                {foundUsers.length > 0 ? <SearchedUsersDropdown users={foundUsers}/> : ''}
             </div>
 
             <ul className={styles.ul}>

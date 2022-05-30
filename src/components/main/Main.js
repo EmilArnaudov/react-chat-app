@@ -27,7 +27,7 @@ export default function Main({
     return (
         <>
             <header>
-                <Navigation user={user} logout={logout}></Navigation>
+                <Navigation db={db} user={user} logout={logout}></Navigation>
             </header>
             <main className={styles.main}>
                 <Contacts></Contacts>
