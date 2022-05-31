@@ -31,7 +31,7 @@
 .smile {
     position: absolute;
     top: 14px;
-    left: 42px;
+    left: 60px;
     color: lightgray;
     font-size: 34px;
     cursor: pointer;
@@ -40,8 +40,12 @@
 .paperclip {
     position: absolute;
     top: 14px;
-    right: 150px;
+    right: 125px;
     color: lightgray;
     font-size: 34px;
     cursor: pointer;
+}
+
+.file {
+    display: none;
 }

@@ -11,9 +11,17 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { setOfflineStatus } from './services/userService';
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 
-const app = initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
+
+const storageContainer = {
+  storage,
+  ref,
+  uploadBytes,
+}
 
 function App() {
 
@@ -42,6 +50,7 @@ function App() {
                       user={user} 
                       db={db}
                       logout={logout}
+                      storageContainer={storageContainer}
                 /> 
               : <Login signInWithGoogle={signInWithGoogle}/>
               }>

@@ -11,7 +11,8 @@ export default function Chat({
     chat,
     db,
     user,
-    otherUser
+    otherUser,
+    storageContainer
 }) {
 
     let [showEmoji, setShowEmoji] = useState(false);
@@ -26,13 +27,14 @@ export default function Chat({
 
     let sortedMessages = [];
     chat.messages.forEach(message => sortedMessages.unshift(message));
+    console.log(sortedMessages);
 
     function showEmojiClickHandler() {
         setShowEmoji(!showEmoji);
     }
 
-    function sendMessage(message) {
-        sendChatMessage(db, chat, message, user.email);
+    function sendMessage(message, optional) {
+        sendChatMessage(db, chat, message, user.email, optional);
     }
 
     return (
@@ -42,10 +44,10 @@ export default function Chat({
                 <p className={styles.lastSeen}>{otherUser.isOnline ? <span className={styles.isOnline}>Online</span> : `Last seen ${formatLastSeen(otherUser.lastSeen)} ago`}</p>
             </div>
             <div className={styles.chatMessages}>
-                {sortedMessages.map(message => <ChatMessage otherUser={otherUser} key={message.message + Date.now()} user={user} message={message}></ChatMessage>)}
+                {sortedMessages.map(message => <ChatMessage otherUser={otherUser} key={Date.now() + Math.random()} user={user} message={message}></ChatMessage>)}
             </div>
             {showEmoji ? <EmojiPicker onChange={(e) => {console.log(e.target)}} ></EmojiPicker> : ''}
-            <ChatInput sendMessage={sendMessage} showEmojiClickHandler={showEmojiClickHandler}></ChatInput>
+            <ChatInput storageContainer={storageContainer} sendMessage={sendMessage} showEmojiClickHandler={showEmojiClickHandler}></ChatInput>
         </div>
     )
 }

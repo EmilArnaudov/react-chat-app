@@ -1,5 +1,6 @@
-import { doc, getDoc, setDoc, addDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { updateUserPrivateChatField } from "./userService";
+import { getDownloadURL } from "firebase/storage";
 
 export async function chatExists(db, chatID) {
 
@@ -38,10 +39,25 @@ export async function getChat(db, chatID) {
 }
 
 
-export async function sendChatMessage(db, chat, messageContent, userEmail) {
+export async function sendChatMessage(db, chat, messageContent, userEmail, optional) {
     const chatRef = doc(db, 'chats', String(chat._id));
-    let message = createChatMessage(messageContent, userEmail)
+    let message;
+    if (!optional) {
+        message = createChatMessage(messageContent, userEmail)
+    } else if (optional === 'image'){
+        message = createChatMessageImage(messageContent, userEmail)
+    }
+
     return updateDoc(chatRef, {messages: arrayUnion(message)})
+}
+
+function createChatMessageImage(messageContent, userEmail) {
+    return {
+        url: messageContent,
+        owner: userEmail,
+        time: createTimeStamp(),
+        type: 'image',
+    }
 }
 
 export async function getLastMessage(db, chatID) {
@@ -77,4 +93,13 @@ function createTimeStamp() {
     }
 
     return `${hours}:${minutes}`;
+}
+
+export async function uploadImageAndGetDownloadUrl(storageContainer, file) {
+
+    let {storage, ref, uploadBytes} = storageContainer
+    let fileRef = ref(storage, Date.now() + '.png');
+    const snapshot = await uploadBytes(fileRef, file);
+    let url = await getDownloadURL(snapshot.ref);
+    return url;
 }

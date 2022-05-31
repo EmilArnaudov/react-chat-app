@@ -51,3 +51,25 @@
     color: white;
     line-height: 22px;
 }
+
+.messageImageContainer {
+    margin-top: 58px;
+    width: 40%;
+    background-color: #4e426d;
+    padding: 24px 16px;
+    border-radius: 0px 22px 22px 22px;
+}
+
+.messageImageContainerOwner {
+    margin-top: 58px;
+    width: 40%;
+    background-color: #4e426d;
+    padding: 24px 16px;
+    border-radius: 22px 0px 22px 22px;
+}
+
+.messageImage {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}

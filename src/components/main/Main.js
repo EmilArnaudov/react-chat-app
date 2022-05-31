@@ -16,13 +16,13 @@ export default function Main({
     logout,
     user,
     db,
+    storageContainer,
 }) {
 
     let [contacts, setContacts] = useState([]);
     let [mappedContacts, setMappedContacts] = useState([]);
     let [chatPartner, setChatPartner] = useState({});
     let [chat, setChat] = useState({});
-    let [contactsIntervalRefresh, setcontactsIntervalRefresh] = useState(false);
 
     const startChatWithUser = async (selectedUser) => {
         let chatID = constructID(user, selectedUser);
@@ -123,7 +123,7 @@ export default function Main({
             </header>
             <main className={styles.main}>
                 <Contacts db={db} user={user} startChatWithUser={startChatWithUser} contacts={mappedContacts}></Contacts>
-                <Chat db={db} user={user} otherUser={chatPartner} chat={chat}></Chat>
+                <Chat storageContainer={storageContainer} db={db} user={user} otherUser={chatPartner} chat={chat}></Chat>
             </main>
         </>
     )
