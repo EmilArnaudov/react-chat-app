@@ -2,10 +2,7 @@ import { collection, doc, getDoc, setDoc, getDocs, updateDoc, arrayUnion } from 
 
 export async function userExists(db, email) {
     const userDocRef = doc(db, 'users', email);
-
     let docSnap = await getDoc(userDocRef);
-
-    
     return docSnap.exists();
 }
 

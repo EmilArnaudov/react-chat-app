@@ -1,13 +1,12 @@
 import styles from './Contact.module.css';
 
 export default function Contact({
-    contact
+    contact,
+    startChatWithUser
 }) {
 
-    console.log(contact);
-
     return (
-        <div className={[styles.card, styles.borderBottom].join(' ')}>
+        <div onClick={() => {startChatWithUser(contact)}} className={[styles.card, styles.borderBottom].join(' ')}>
             <div className={styles.imgContainer}>
                 <img className={styles.img} src={contact.photoURL} alt="" />
             </div>

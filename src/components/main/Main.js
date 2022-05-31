@@ -4,7 +4,7 @@ import Contacts from '../contacts/Contacts';
 import Chat from '../chat/Chat';
 import { userExists, addUserToDatabase } from '../../services/userService';
 import { constructID } from '../../services/helpers'
-import { chatExists } from '../../services/chatService';
+import { chatExists, getChat } from '../../services/chatService';
 import { createChat } from '../../services/chatService';
 import { getContactUsersInfo } from '../../services/userService';
 
@@ -20,6 +20,8 @@ export default function Main({
 
     let [contacts, setContacts] = useState([]);
     let [mappedContacts, setMappedContacts] = useState([]);
+    let [chatPartner, setChatPartner] = useState({});
+    let [chat, setChat] = useState({});
 
     const startChatWithUser = async (selectedUser) => {
         let chatID = constructID(user, selectedUser);
@@ -28,6 +30,8 @@ export default function Main({
         if (!chatExist) {
             createChat(db, chatID, user, selectedUser);
         }
+
+        setChatPartner(selectedUser);
       }
 
     useEffect( () => {
@@ -45,7 +49,10 @@ export default function Main({
     useEffect(() => {
         const unsub = onSnapshot(doc(db, "users", user.email), (doc) => {
             let userData = doc.data();
-            setContacts(userData.privateChats);
+            if (userData) {
+                setContacts(userData.privateChats);
+            }
+            
           });
 
           return unsub;
@@ -56,9 +63,37 @@ export default function Main({
         getContactUsersInfo(db, contacts)
             .then(map => {
                 setMappedContacts(map);
+                if (map.length > 0) {
+                    setChatPartner(map[0])
+                }
             })
 
     }, [contacts])
+
+    useEffect(() => {
+        if (Object.keys(chatPartner).length > 0) {
+            let chatID = constructID(user, chatPartner);
+            getChat(db, chatID)
+                .then(chat => {
+                    setChat(chat);
+                })
+        }
+
+    }, [chatPartner])
+
+
+    useEffect(() => {
+        if (Object.keys(chatPartner).length === 0) {
+            return;
+        }
+        let chatID = constructID(user, chatPartner);
+        const unsub = onSnapshot(doc(db, "chats", chatID), (doc) => {
+            let chatData = doc.data();
+            setChat(chatData);
+            });
+
+        return unsub;
+    }, [chatPartner])
 
     return (
         <>
@@ -66,8 +101,8 @@ export default function Main({
                 <Navigation startChatWithUser={startChatWithUser} db={db} user={user} logout={logout}></Navigation>
             </header>
             <main className={styles.main}>
-                <Contacts contacts={mappedContacts}></Contacts>
-                <Chat></Chat>
+                <Contacts startChatWithUser={startChatWithUser} contacts={mappedContacts}></Contacts>
+                <Chat db={db} user={user} otherUser={chatPartner} chat={chat}></Chat>
             </main>
         </>
     )

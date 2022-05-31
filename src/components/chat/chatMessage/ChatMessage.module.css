@@ -1,6 +1,12 @@
+.containerGuest {
+    display: flex;
+    gap: 10px;
+}
+
 .container {
     display: flex;
     gap: 10px;
+    justify-content: right;
 }
 
 .imageContainer {
@@ -31,6 +37,14 @@
     background-color: #4e426d;
     padding: 24px 16px;
     border-radius: 0px 22px 22px 22px;
+}
+
+.messageContainerOwner {
+    margin-top: 58px;
+    width: 40%;
+    background-color: #4e426d;
+    padding: 24px 16px;
+    border-radius: 22px 0px 22px 22px;
 }
 
 .message {

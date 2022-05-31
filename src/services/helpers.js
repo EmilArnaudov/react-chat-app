@@ -17,6 +17,6 @@ export function constructID(user, otherUser) {
         sum -= 30
     }
 
-    return sum;
+    return String(sum);
 
 }   
