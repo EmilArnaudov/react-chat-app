@@ -63,14 +63,16 @@ function createChatMessage(messageContent, userEmail) {
 
 function createTimeStamp() {
     let date = new Date()
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
+    let hours = String(date.getHours());
+    let minutes = String(date.getMinutes());
+    
+    console.log(hours, hours.length);
 
     if (hours.length === 1) {
         hours = `0${hours}`
     }
 
-    if (minutes.length === 1) {
+    if (minutes.split('').length === 1) {
         minutes = `0${minutes}`
     }
 

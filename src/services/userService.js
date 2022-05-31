@@ -14,8 +14,15 @@ export async function addUserToDatabase(db, user) {
         chatRoomsHosted: [],
         chatRoomsJoined: [],
         privateChats: [],
+        isOnline: false,
+        lastSeen: '',
         photoURL: user.photoURL,
     });
+}
+
+export async function setOnlineStatus(db, user) {
+    const userToUpdateRef = doc(db, 'users', user.email);
+    await updateDoc(userToUpdateRef, {isOnline: true})
 }
 
 

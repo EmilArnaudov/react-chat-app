@@ -2,7 +2,7 @@ import styles from './Main.module.css';
 import Navigation from "../navigation/Navigation"
 import Contacts from '../contacts/Contacts';
 import Chat from '../chat/Chat';
-import { userExists, addUserToDatabase } from '../../services/userService';
+import { userExists, addUserToDatabase, setOnlineStatus } from '../../services/userService';
 import { constructID } from '../../services/helpers'
 import { chatExists, getChat } from '../../services/chatService';
 import { createChat } from '../../services/chatService';
@@ -28,20 +28,25 @@ export default function Main({
         let chatExist = await chatExists(db, chatID);
 
         if (!chatExist) {
-            createChat(db, chatID, user, selectedUser);
+            createChat(db, chatID, user, selectedUser)
+                .then(() => {
+                    setChatPartner(selectedUser);
+                })
+        } else {
+            setChatPartner(selectedUser);
         }
 
-        setChatPartner(selectedUser);
+
       }
 
     useEffect( () => {
 
         userExists(db, user.email)
             .then(userExistsInDb => {
-                console.log(userExistsInDb);
                 if (!userExistsInDb) {
                     addUserToDatabase(db, user);
                 }
+                setOnlineStatus(db, user);
             })
 
     }, [])
@@ -64,7 +69,7 @@ export default function Main({
             .then(map => {
                 setMappedContacts(map);
                 if (map.length > 0) {
-                    setChatPartner(map[0])
+                    setChatPartner(map[map.length - 1])
                 }
             })
 
@@ -101,7 +106,7 @@ export default function Main({
                 <Navigation startChatWithUser={startChatWithUser} db={db} user={user} logout={logout}></Navigation>
             </header>
             <main className={styles.main}>
-                <Contacts startChatWithUser={startChatWithUser} contacts={mappedContacts}></Contacts>
+                <Contacts db={db} user={user} startChatWithUser={startChatWithUser} contacts={mappedContacts}></Contacts>
                 <Chat db={db} user={user} otherUser={chatPartner} chat={chat}></Chat>
             </main>
         </>

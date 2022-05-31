@@ -1,9 +1,27 @@
+import { useEffect, useState } from 'react';
+import { getLastMessage } from '../../services/chatService';
+import { constructID } from '../../services/helpers';
 import styles from './Contact.module.css';
 
 export default function Contact({
     contact,
-    startChatWithUser
+    startChatWithUser,
+    db,
+    user
 }) {
+
+    let [lastMessage, setLastMessage] = useState({});
+
+    useEffect(() => {
+        let chatID = constructID(user, contact)
+        getLastMessage(db,chatID)
+            .then(message => {
+                if (Object.keys(message).length > 0) {
+                    setLastMessage(message);
+                }
+
+            })
+    }, [])
 
     return (
         <div onClick={() => {startChatWithUser(contact)}} className={[styles.card, styles.borderBottom].join(' ')}>
@@ -12,10 +30,10 @@ export default function Contact({
             </div>
             <div className={styles.userDetails}>
                 <p className={styles.username}>{contact.displayName}</p>
-                <p className={styles.lastMessage}>I was about to call you but</p>
+                <p className={styles.lastMessage}>{Object.keys(lastMessage).length > 0 ? lastMessage.message : ''}</p>
             </div>
             <div className={styles.lastMessageTimeContainer}>
-                <p className={styles.lastMessageTime}>19:00</p>
+                <p className={styles.lastMessageTime}>{Object.keys(lastMessage).length > 0 ? lastMessage.time : ''}</p>
             </div>
         </div>
     )
