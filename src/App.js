@@ -10,6 +10,7 @@ import { getAuth, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { setOfflineStatus } from './services/userService';
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app);
@@ -28,6 +29,7 @@ function App() {
 
 
   const logout = () => {
+    setOfflineStatus(db, user);
     signOut(auth);
   }
 

@@ -14,6 +14,7 @@
 
 .imgContainer {
     width: 15%;
+    position: relative;
 }
 
 .img {
@@ -27,6 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 70%;
     gap: 12px;
 }
 
@@ -56,4 +58,16 @@
 
 .borderBottom {
     /* border-bottom: 0.05px solid gray; */
+}
+
+.isOnline {
+    width: 8px;
+    height: 8px;
+    border: none;
+    background-color: rgb(33, 185, 33);
+    border-radius: 50%;
+
+    position: absolute;
+    bottom: 10px;
+    left: 40px;
 }

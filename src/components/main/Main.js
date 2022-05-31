@@ -9,7 +9,7 @@ import { createChat } from '../../services/chatService';
 import { getContactUsersInfo } from '../../services/userService';
 
 
-import { onSnapshot, doc } from 'firebase/firestore';
+import { onSnapshot, doc, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 
 export default function Main({
@@ -22,6 +22,7 @@ export default function Main({
     let [mappedContacts, setMappedContacts] = useState([]);
     let [chatPartner, setChatPartner] = useState({});
     let [chat, setChat] = useState({});
+    let [contactsIntervalRefresh, setcontactsIntervalRefresh] = useState(false);
 
     const startChatWithUser = async (selectedUser) => {
         let chatID = constructID(user, selectedUser);
@@ -65,6 +66,22 @@ export default function Main({
 
 
     useEffect(() => {
+        setInterval(() => {
+            let docRef = doc(db, "users", user.email)
+            getDoc(docRef)
+                .then(docSnap => {
+                    let userData = docSnap.data();
+                    if (userData) {
+                        setContacts(userData.privateChats);
+                    }
+                })
+        }, 180000)
+
+
+    }, [])
+
+
+    useEffect(() => {
         getContactUsersInfo(db, contacts)
             .then(map => {
                 setMappedContacts(map);
@@ -72,7 +89,6 @@ export default function Main({
                     setChatPartner(map[map.length - 1])
                 }
             })
-
     }, [contacts])
 
     useEffect(() => {

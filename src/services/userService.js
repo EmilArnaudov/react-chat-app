@@ -25,6 +25,11 @@ export async function setOnlineStatus(db, user) {
     await updateDoc(userToUpdateRef, {isOnline: true})
 }
 
+export async function setOfflineStatus(db, user) {
+    const userToUpdateRef = doc(db, 'users', user.email);
+    await Promise.all([updateDoc(userToUpdateRef, {isOnline: false}), updateDoc(userToUpdateRef, {lastSeen: Date.now()})])
+}
+
 
 export async function searchUsersInDb(db, query, user) {
     let result = [];

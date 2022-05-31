@@ -19,4 +19,48 @@ export function constructID(user, otherUser) {
 
     return String(sum);
 
-}   
+}
+
+export function formatLastSeen(lastSeen) {
+    let now = Date.now();
+    let timeDiff = now - lastSeen;
+
+    let seconds = Math.floor(timeDiff / 1000);
+    if (seconds < 60) {
+        return `${seconds} seconds`;
+    }
+
+    let minutes = Math.floor(seconds / 60);
+    if (minutes < 60) {
+        return `${minutes} minutes`;
+
+    }
+
+    let hours = Math.floor(minutes / 60);
+    if (hours < 24) {
+        return `${hours} hours`
+      ;
+    }
+
+    let days = Math.floor(hours / 24);
+    if (days < 7) {
+        return `${days} days`
+
+    }
+
+    let weeks = Math.floor(days / 7)
+    if (weeks < 4) {
+        return `${weeks} weeks`
+
+    }
+
+    let months = Math.floor(weeks / 4)
+    if (months < 12) {
+        return `${months} months`
+    }
+
+    let years = Math.floor(months / 12);
+    return `${years} years`
+
+
+} 

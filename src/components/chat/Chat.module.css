@@ -17,6 +17,7 @@
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
+    height: 80%;
 }
 
 
@@ -32,3 +33,33 @@
     background-color: #3f345f;    /* color of the scroll thumb */
     border-radius: 20px;       /* roundness of the scroll thumb */
   }
+
+.otherUser {
+  display: flex;
+  flex-direction: column;
+  gap: 5px
+}
+
+.otherName {
+  color: white;
+  font-size: 22px;
+}
+
+.lastSeen {
+  color: gray;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.isOnline {
+  color: rgb(4, 201, 4);
+}
+
+.noChat {
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

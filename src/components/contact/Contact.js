@@ -27,6 +27,7 @@ export default function Contact({
         <div onClick={() => {startChatWithUser(contact)}} className={[styles.card, styles.borderBottom].join(' ')}>
             <div className={styles.imgContainer}>
                 <img className={styles.img} src={contact.photoURL} alt="" />
+                {contact.isOnline ? <div className={styles.isOnline}></div> : ''}
             </div>
             <div className={styles.userDetails}>
                 <p className={styles.username}>{contact.displayName}</p>

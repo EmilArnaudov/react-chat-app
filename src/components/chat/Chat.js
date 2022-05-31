@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { sendChatMessage } from '../../services/chatService';
+import { formatLastSeen } from '../../services/helpers';
 import styles from './Chat.module.css';
 
 import ChatInput from './chatInput/ChatInput';
@@ -16,7 +17,11 @@ export default function Chat({
     let [showEmoji, setShowEmoji] = useState(false);
 
     if (Object.keys(chat).length === 0) {
-        return;
+        return (
+            <div className={styles.container}>
+                <p className={styles.noChat}>No chats available..</p>
+            </div>
+        )
     }
 
     let sortedMessages = [];
@@ -32,6 +37,10 @@ export default function Chat({
 
     return (
         <div className={styles.container}>
+            <div className={styles.otherUser}>
+                <p className={styles.otherName}>{otherUser.displayName}</p>
+                <p className={styles.lastSeen}>{otherUser.isOnline ? <span className={styles.isOnline}>Online</span> : `Last seen ${formatLastSeen(otherUser.lastSeen)} ago`}</p>
+            </div>
             <div className={styles.chatMessages}>
                 {sortedMessages.map(message => <ChatMessage otherUser={otherUser} key={message.message + Date.now()} user={user} message={message}></ChatMessage>)}
             </div>

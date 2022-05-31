@@ -5,6 +5,8 @@
     border-radius: 24px;
     padding: 18px;
     
+   position: relative;
+
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -24,3 +26,13 @@
     border-radius: 20px;       /* roundness of the scroll thumb */
     border: 5px solid #3f345f;  /* creates padding around scroll thumb */
   }
+
+
+.noPeople {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
