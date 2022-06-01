@@ -17,6 +17,9 @@ export default function Contact({
         getLastMessage(db,chatID)
             .then(message => {
                 if (Object.keys(message).length > 0) {
+                    if (message.type === 'image') {
+                        message.message = 'Shared an image.'
+                    }
                     setLastMessage(message);
                 }
 

@@ -27,7 +27,6 @@ export default function Chat({
 
     let sortedMessages = [];
     chat.messages.forEach(message => sortedMessages.unshift(message));
-    console.log(sortedMessages);
 
     function showEmojiClickHandler() {
         setShowEmoji(!showEmoji);
@@ -46,8 +45,7 @@ export default function Chat({
             <div className={styles.chatMessages}>
                 {sortedMessages.map(message => <ChatMessage otherUser={otherUser} key={Date.now() + Math.random()} user={user} message={message}></ChatMessage>)}
             </div>
-            {showEmoji ? <EmojiPicker onChange={(e) => {console.log(e.target)}} ></EmojiPicker> : ''}
-            <ChatInput storageContainer={storageContainer} sendMessage={sendMessage} showEmojiClickHandler={showEmojiClickHandler}></ChatInput>
+            <ChatInput showEmoji={showEmoji} storageContainer={storageContainer} sendMessage={sendMessage} showEmojiClickHandler={showEmojiClickHandler}></ChatInput>
         </div>
     )
 }

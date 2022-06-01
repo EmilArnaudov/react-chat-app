@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import styles from './ChatInput.module.css';
 import { uploadImageAndGetDownloadUrl } from '../../../services/chatService';
+import EmojiPicker from '../emojiPicker/EmojiPicker';
 
 export default function ChatInput({
     showEmojiClickHandler,
     sendMessage,
-    storageContainer
+    storageContainer,
+    showEmoji
 }) {
 
     let [message, setMessage] = useState('');
@@ -26,8 +28,15 @@ export default function ChatInput({
         console.log(url);
     }
 
+    function addEmoji(emoji) {
+        let newMessage = message + emoji;
+        setMessage(newMessage);
+    }
+
     return (
+        
         <form onSubmit={sendMessageHandler}>
+        {showEmoji ? <EmojiPicker addEmoji={addEmoji}></EmojiPicker> : ''}
         <div className={styles.container}>
             <i onClick={showEmojiClickHandler} className={["fa-solid", "fa-face-smile", styles.smile].join(' ')}></i>
             <input onChange={uploadImage} className={styles.file} name='file' id='file' type="file" />

@@ -1,25 +1,20 @@
-import { useEffect, useRef } from 'react'
-
-import data from '@emoji-mart/data'
-import { Picker } from 'emoji-mart'
+import { useEffect, useRef, useState } from 'react'
+import Picker from 'emoji-picker-react';
 
 import styles from './EmojiPicker.module.css'
 
-export default function EmojiPicker() {
-  const ref = useRef()
+export default function EmojiPicker({
+  addEmoji
+}) {
+  const [chosenEmoji, setChosenEmoji] = useState(null);
 
-  useEffect(() => {
-    new Picker({data, ref })
-  })
-
-  function show(e) {
-      console.log(e.target);
-  }
+  const onEmojiClick = (event, emojiObject) => {
+    addEmoji(emojiObject.emoji);
+  };
 
   return (
-        <div className={styles.emoji}>
-            <div ref={ref}/>
-        </div>
-    
-  )
+    <div className={styles.emoji}>
+      <Picker onEmojiClick={onEmojiClick} />
+    </div>
+  );
 }
